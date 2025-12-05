@@ -1,18 +1,15 @@
+// src/app/layout.js
 import "./globals.css";
-import Navbar from "./components/Navbar";
 
 export const metadata = {
-  title: "Museo",
-  description: "Nightclub website",
+  title: "Nightclub",
+  description: "Have a good time",
 };
 
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
-      <body>
-        <Navbar />
-        {children}
-      </body>
+      <body className="bg-black text-white">{children}</body>
     </html>
   );
 }
