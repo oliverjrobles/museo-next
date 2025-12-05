@@ -7,21 +7,21 @@ export default function Section1() {
   const items = [
     {
       image: "/assets/content-img/thumb1.jpg",
-      title: "Cocktail Bar",
+      title: "Night Club",
       text: "Try exclusive cocktails crafted by our mixology masters.",
-      icon: "🍸",
+      icon: "/assets/icon/favicon.png",
     },
     {
       image: "/assets/content-img/reastaurant_1.jpg",
       title: "Restaurant",
-      text: "Enjoy delicious cuisine in an elegant modern setting. .",
-      icon: "🍽️",
+      text: "Enjoy delicious cuisine in an elegant modern setting.",
+      icon: "",
     },
     {
       image: "/assets/content-img/thumb2.jpg",
-      title: "VIP Lounge",
+      title: "Bar",
       text: "Relax in luxury with bottle service and private seating.",
-      icon: "💎",
+      icon: "",
     },
   ];
 
@@ -55,11 +55,9 @@ export default function Section1() {
                 <div className="absolute top-0 left-0 w-16 h-16 bg-pink-500" style={{ clipPath: "polygon(0 0, 100% 0, 0 100%)" }} />
                 <div className="absolute bottom-0 right-0 w-16 h-16 bg-pink-500" style={{ clipPath: "polygon(100% 0, 100% 100%, 0 100%)" }} />
 
-                {/* Ikon-boks */}
+                {/* Ikon-boks (smart emoji + image detection) */}
                 <div className="mb-6 flex items-center justify-center">
-                  <div className="w-20 h-20 border-2 border-pink-500 flex items-center justify-center rounded-sm">
-                    <span className="text-pink-500 text-3xl">{item.icon}</span>
-                  </div>
+                  <div className="w-20 h-20 border-2 border-pink-500 flex items-center justify-center rounded-sm">{item.icon.startsWith("/") ? <img src={item.icon} alt={`${item.title} icon`} className="w-12 h-12 object-contain" /> : <span className="text-pink-500 text-3xl">{item.icon}</span>}</div>
                 </div>
 
                 {/* Titel */}
