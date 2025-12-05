@@ -59,9 +59,9 @@ export default function Navbar() {
         {/* MOBILE BURGER (kun når menuen er LUKKET) */}
         {!isOpen && (
           <button className="md:hidden inline-flex flex-col justify-between h-6 w-8 focus:outline-none" onClick={() => setIsOpen(true)} aria-label="Open menu">
-            <span className="h-[2px] w-full bg-white" />
-            <span className="h-[2px] w-full bg-white" />
-            <span className="h-[2px] w-full bg-white" />
+            <span className="h-0.5 w-full bg-white" />
+            <span className="h-0.5 w-full bg-white" />
+            <span className="h-0.5 w-full bg-white" />
           </button>
         )}
       </div>
