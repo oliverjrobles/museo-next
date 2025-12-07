@@ -4,7 +4,8 @@ import Hero from "./components/Hero";
 import Navbar from "./components/Navbar";
 import Section1 from "./components/Section1";
 import Gallery from "./components/Gallery";
-import EventsCarousel from "./components/EventsCarousel"; // ← tilføj denne
+import EventsCarousel from "./components/EventsCarousel";
+import TestimonialCarousel from "./components/TestimonialCarousel";
 
 export default function HomePage() {
   return (
@@ -14,6 +15,7 @@ export default function HomePage() {
       <Section1 />
       <EventsCarousel />
       <Gallery />
+      <TestimonialCarousel />
     </main>
   );
 }
