@@ -39,7 +39,7 @@ export default function Gallery() {
         }
       },
       {
-        threshold: 0.2, // 20% af sektionen skal være synlig
+        threshold: 0.5, // sektionen skal være synlig
         rootMargin: "0px 0px", // kan justeres hvis det ikke trigger
       }
     );

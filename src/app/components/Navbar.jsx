@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import Image from "next/image";
+import Link from "next/link";
 
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
@@ -16,14 +17,7 @@ export default function Navbar() {
       <div className="mx-auto flex h-20 max-w-5xl items-center justify-between px-4 sm:px-8">
         {/* Logo */}
         <div className="flex items-center">
-          <Image
-            src="/assets/logo.png" // læg logoet i: public/assets/logo.png
-            alt="Museo Nightclub Logo"
-            width={150}
-            height={40}
-            className="h-10 w-auto object-contain"
-            priority
-          />
+          <Image src="/assets/logo.png" alt="Museo Nightclub Logo" width={150} height={40} className="h-10 w-auto object-contain" priority />
         </div>
 
         {/* DESKTOP MENU */}
@@ -34,11 +28,14 @@ export default function Navbar() {
             </a>
             <span className="pointer-events-none absolute left-1/2 top-6 h-0.5 w-10 -translate-x-1/2 bg-[#ff2b80]" />
           </li>
+
+          {/* BLOG – rettet til Next Link */}
           <li>
-            <a href="#blog" className="transition-colors hover:text-[#ff2b80]">
+            <Link href="/blog" className="transition-colors hover:text-[#ff2b80]">
               Blog
-            </a>
+            </Link>
           </li>
+
           <li>
             <a href="#book" className="transition-colors hover:text-[#ff2b80]">
               Book table
@@ -86,11 +83,14 @@ export default function Navbar() {
                 Home
               </a>
             </li>
+
+            {/* BLOG – rettet til Link og rigtig path */}
             <li>
-              <a href="#blog" onClick={() => setIsOpen(false)} className="text-white">
+              <Link href="/blog" onClick={() => setIsOpen(false)} className="text-white">
                 Blog
-              </a>
+              </Link>
             </li>
+
             <li>
               <a href="#book" onClick={() => setIsOpen(false)} className="text-white">
                 Book table

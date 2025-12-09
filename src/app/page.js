@@ -6,6 +6,7 @@ import Section1 from "./components/Section1";
 import Gallery from "./components/Gallery";
 import EventsCarousel from "./components/EventsCarousel";
 import TestimonialCarousel from "./components/TestimonialCarousel";
+import BlogSection from "./components/blog";
 
 export default function HomePage() {
   return (
@@ -16,6 +17,7 @@ export default function HomePage() {
       <EventsCarousel />
       <Gallery />
       <TestimonialCarousel />
+      <BlogSection />
     </main>
   );
 }
