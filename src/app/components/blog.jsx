@@ -8,7 +8,7 @@ export default function BlogSection() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
 
-  // Hent blogposts fra API (kun en gang)
+  // Hent blogposts fra API
   useEffect(() => {
     async function fetchPosts() {
       try {
@@ -61,11 +61,7 @@ export default function BlogSection() {
       {/* 3 seneste posts i grid */}
       <div className="max-w-5xl mx-auto grid gap-8 md:grid-cols-3">
         {posts.slice(0, 3).map((post) => (
-          <Link
-            key={post.id}
-            href={`/blog/${post.id}`}
-            className="group block" // <-- hele kortet er klikbart
-          >
+          <Link key={post.id} href={`/blog/${post.id}`} className="group block">
             <article
               className=" bg-[#050005] flex flex-col transition-colors duration-300 group-hover:-translate-y-1
                 group-hover:border-pink-500"
