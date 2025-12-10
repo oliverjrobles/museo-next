@@ -7,6 +7,7 @@ import Gallery from "./components/Gallery";
 import EventsCarousel from "./components/EventsCarousel";
 import TestimonialCarousel from "./components/TestimonialCarousel";
 import BlogSection from "./components/blog";
+import Newsletter from "./components/Newsletter";
 
 export default function HomePage() {
   return (
@@ -18,6 +19,7 @@ export default function HomePage() {
       <Gallery />
       <TestimonialCarousel />
       <BlogSection />
+      <Newsletter />
     </main>
   );
 }

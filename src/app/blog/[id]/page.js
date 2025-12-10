@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 import { useParams } from "next/navigation";
 import Navbar from "../../components/Navbar";
+import Form from "../../components/Form";
 
 export default function BlogDetailPage() {
   const { id } = useParams();
@@ -44,7 +45,6 @@ export default function BlogDetailPage() {
         const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/comments?blogpostId=${id}`);
         const data = await res.json();
 
-        // samme kommentar 3 gange, som du gerne ville
         setComments([...data, ...data, ...data]);
       } catch (err) {
         console.error("Fejl med comments:", err);
@@ -54,7 +54,7 @@ export default function BlogDetailPage() {
     fetchComments();
   }, [id]);
 
-  // Loading / fejl
+  // Loading
   if (loading) {
     return (
       <>
@@ -93,7 +93,7 @@ export default function BlogDetailPage() {
       <Navbar />
 
       <main className="min-h-screen bg-black text-white">
-        {/* HERO – topbanner */}
+        {/* HERO –*/}
         <section className="relative h-40 md:h-56 bg-cover bg-center" style={{ backgroundImage: "url('/assets/bg/footerbg.jpg')" }}>
           <div className="absolute inset-0 bg-black/70" />
 
@@ -106,7 +106,7 @@ export default function BlogDetailPage() {
           </div>
         </section>
 
-        {/* SELVE BLOGPOSTEN */}
+        {/* BLOGPOSTEN */}
         <article className="max-w-4xl mx-auto px-4 md:px-0 py-12">
           {/* Billede øverst */}
           {post.asset?.url && (
@@ -131,7 +131,6 @@ export default function BlogDetailPage() {
 
           {/* COMMENTS */}
           <section className="mt-4 mb-16">
-            {/* samme venstre indryk som inde i boksen */}
             <div className="pl-6 md:pl-10">
               <h4 className="text-lg md:text-xl uppercase tracking-[0.4em] font-semibold mb-10">{comments.length} comments</h4>
               <div className="space-y-6 text-sm md:text-base text-gray-200">
@@ -147,6 +146,9 @@ export default function BlogDetailPage() {
             </div>
           </section>
         </article>
+        <section className="max-w-4xl mx-auto px-4 md:px-0 pb-16">
+          <Form />
+        </section>
       </main>
     </>
   );
