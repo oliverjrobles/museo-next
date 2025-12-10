@@ -6,7 +6,7 @@ import Section1 from "./components/Section1";
 import Gallery from "./components/Gallery";
 import EventsCarousel from "./components/EventsCarousel";
 import TestimonialCarousel from "./components/TestimonialCarousel";
-import BlogSection from "./components/blog";
+import BlogSection from "./components/Blog";
 import Newsletter from "./components/Newsletter";
 
 export default function HomePage() {
