@@ -3,9 +3,15 @@
 import { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
+  const pathname = usePathname();
+
+  const isHome = pathname === "/";
+  const isBlog = pathname === "/blog";
+  const isBook = pathname === "/book";
 
   return (
     <nav className="relative overflow-hidden bg-[#060008] text-white border-y-2 border-[#ff2b80]">
@@ -22,25 +28,31 @@ export default function Navbar() {
 
         {/* DESKTOP MENU */}
         <ul className="hidden md:flex list-none gap-8 text-[0.85rem] tracking-[0.2em] uppercase">
+          {/* HOME */}
           <li className="relative">
-            <a href="#home" className="text-[#ff2b80]">
+            <Link href="/" className={isHome ? "text-[#ff2b80]" : "transition-colors hover:text-[#ff2b80]"}>
               Home
-            </a>
-            <span className="pointer-events-none absolute left-1/2 top-6 h-0.5 w-10 -translate-x-1/2 bg-[#ff2b80]" />
+            </Link>
+            {isHome && <span className="pointer-events-none absolute left-1/2 top-6 h-0.5 w-10 -translate-x-1/2 bg-[#ff2b80]" />}
           </li>
 
-          {/* BLOG – rettet til Next Link */}
-          <li>
-            <Link href="/blog" className="transition-colors hover:text-[#ff2b80]">
+          {/* BLOG */}
+          <li className="relative">
+            <Link href="/blog" className={isBlog ? "text-[#ff2b80]" : "transition-colors hover:text-[#ff2b80]"}>
               Blog
             </Link>
+            {isBlog && <span className="pointer-events-none absolute left-1/2 top-6 h-0.5 w-10 -translate-x-1/2 bg-[#ff2b80]" />}
           </li>
 
-          <li>
-            <a href="#book" className="transition-colors hover:text-[#ff2b80]">
+          {/* BOOK TABLE */}
+          <li className="relative">
+            <Link href="/book" className={isBook ? "text-[#ff2b80]" : "transition-colors hover:text-[#ff2b80]"}>
               Book table
-            </a>
+            </Link>
+            {isBook && <span className="pointer-events-none absolute left-1/2 top-6 h-0.5 w-10 -translate-x-1/2 bg-[#ff2b80]" />}
           </li>
+
+          {/* CONTACT + LOGIN scroller stadig til sektioner på home */}
           <li>
             <a href="#contact" className="transition-colors hover:text-[#ff2b80]">
               Contact us
@@ -79,23 +91,23 @@ export default function Navbar() {
           {/* menu-links i midten */}
           <ul className="flex h-[calc(100%-5rem)] flex-col items-center justify-center gap-8 text-sm tracking-[0.35em] uppercase">
             <li>
-              <a href="#home" onClick={() => setIsOpen(false)} className="text-white">
+              <Link href="/" onClick={() => setIsOpen(false)} className={isHome ? "text-[#ff2b80]" : "text-white"}>
                 Home
-              </a>
+              </Link>
             </li>
 
-            {/* BLOG – rettet til Link og rigtig path */}
             <li>
-              <Link href="/blog" onClick={() => setIsOpen(false)} className="text-white">
+              <Link href="/blog" onClick={() => setIsOpen(false)} className={isBlog ? "text-[#ff2b80]" : "text-white"}>
                 Blog
               </Link>
             </li>
 
             <li>
-              <a href="#book" onClick={() => setIsOpen(false)} className="text-white">
+              <Link href="/book" onClick={() => setIsOpen(false)} className={isBook ? "text-[#ff2b80]" : "text-white"}>
                 Book table
-              </a>
+              </Link>
             </li>
+
             <li>
               <a href="#contact" onClick={() => setIsOpen(false)} className="text-white">
                 Contact us

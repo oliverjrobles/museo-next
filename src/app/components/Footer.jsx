@@ -17,7 +17,6 @@ export default function Footer() {
 
         if (postsRes && postsRes.ok) {
           const blogposts = await postsRes.json();
-          // vi tager de første 2 blogposts
           const mappedPosts = (Array.isArray(blogposts) ? blogposts : []).slice(0, 2).map((p) => ({
             id: p.id,
             title: p.title,
@@ -28,11 +27,9 @@ export default function Footer() {
 
         if (commentsRes && commentsRes.ok) {
           const comments = await commentsRes.json();
-          // vi tager de første 2 comments
           const mappedTweets = (Array.isArray(comments) ? comments : []).slice(0, 2).map((c) => ({
             id: c.id,
             text: c.content,
-            // meget enkel "time ago"
             timeAgo: c.date
               ? new Date(c.date).toLocaleDateString("en-GB", {
                   day: "2-digit",
@@ -55,32 +52,84 @@ export default function Footer() {
     <footer
       className="relative bg-cover bg-center text-white"
       style={{
-        // baggrundsbillede som er sat lokalt i projektet
         backgroundImage: "url('/assets/bg/footerbg.jpg')",
       }}
     >
-      {/* mørk overlay = lav exposure */}
+      {/* mørk overlay */}
       <div className="absolute inset-0 bg-black/90" />
 
       <div className="relative z-10 max-w-6xl mx-auto px-6 py-16 md:py-20">
-        {/* TOP GRID */}
-        <div className="grid gap-12 md:grid-cols-3">
-          {/* Lokation skrevet lokalt */}
-          <div className="space-y-8 text-center md:text-left">
-            <div>
-              <h3 className="text-sm tracking-[0.25em] uppercase text-[#ff3e7f] mb-3">LOCATION</h3>
-              <p className="text-sm opacity-90">Kompagnistræde 278</p>
-              <p className="text-sm opacity-90">1265 København K</p>
-            </div>
+        {/* ===== MOBIL-LAYOUT (PSD-STYLE) ===== */}
+        <div className="md:hidden max-w-xs mx-auto text-center space-y-10">
+          {/* BRAND */}
+          <div className="space-y-2">
+            <h2 className="text-2xl font-semibold tracking-[0.35em] uppercase">
+              NIGHT<span className="text-[#ff3e7f]">CLUB</span>
+            </h2>
+            <p className="text-[10px] tracking-[0.35em] uppercase">Have a good time</p>
+          </div>
 
-            <div>
-              <h3 className="text-sm tracking-[0.25em] uppercase text-[#ff3e7f] mb-3">OPENING HOURS</h3>
-              <p className="text-sm opacity-90">WED – THU: 10:30 PM TO 3 AM</p>
-              <p className="text-sm opacity-90">SAT – SUN: 11 PM TO 5 AM</p>
+          {/* LOCATION */}
+          <div className="space-y-2 text-sm">
+            <h3 className="text-xs font-semibold tracking-[0.3em] uppercase text-[#ff3e7f]">Location</h3>
+            <p>Kompagnistræde 278</p>
+            <p>1265 København K</p>
+          </div>
+
+          {/* OPENING HOURS */}
+          <div className="space-y-2 text-sm">
+            <h3 className="text-xs font-semibold tracking-[0.3em] uppercase text-[#ff3e7f]">Opening Hours</h3>
+            <p>Wed - Thu: 10:30 PM to 3 AM</p>
+            <p>Sat - Sun: 11 PM to 5 AM</p>
+          </div>
+
+          {/* SOCIAL */}
+          <div className="space-y-3">
+            <p className="text-xs tracking-[0.25em] uppercase">Stay Connected With Us</p>
+            <div className="flex justify-center gap-3">
+              <button className="w-9 h-9 border border-white/80 flex items-center justify-center hover:bg-[#ff3e7f] hover:border-[#ff3e7f] transition-colors">
+                <FaFacebookF />
+              </button>
+              <button className="w-9 h-9 border border-white/80 flex items-center justify-center hover:bg-[#ff3e7f] hover:border-[#ff3e7f] transition-colors">
+                <FaTwitter />
+              </button>
+              <button className="w-9 h-9 border border-white/80 flex items-center justify-center hover:bg-[#ff3e7f] hover:border-[#ff3e7f] transition-colors">
+                <FaSnapchatGhost />
+              </button>
+              <button className="w-9 h-9 border border-white/80 flex items-center justify-center hover:bg-[#ff3e7f] hover:border-[#ff3e7f] transition-colors">
+                <FaInstagram />
+              </button>
             </div>
           </div>
 
-          {/* RECENT POSTS (fra /blogposts hvis muligt) */}
+          {/* COPYRIGHT-TEXT */}
+          <div className="space-y-1 text-[11px] text-white/70 leading-relaxed">
+            <p>Night Club PSD Template</p>
+            <p>All Rights Reserved</p>
+            <p>Copyright © NightClub</p>
+          </div>
+        </div>
+
+        {/* ===== DESKTOP/TABLET GRID ===== */}
+        <div className="hidden md:grid gap-12 md:grid-cols-3">
+          {/* Lokation + åbningstider */}
+          <div className="space-y-6">
+            <img src="/assets/logo.png" alt="Nightclub Logo" className="w-36" />
+
+            <div>
+              <h3 className="text-pink-500 font-semibold tracking-widest mb-2">LOCATION</h3>
+              <p>Kompagnistræde 278</p>
+              <p>1265 København K</p>
+            </div>
+
+            <div>
+              <h3 className="text-pink-500 font-semibold tracking-widest mb-2">OPENING HOURS</h3>
+              <p>WED - THU: 10:30 PM TO 3 AM</p>
+              <p>SAT - SUN: 11 PM TO 5 AM</p>
+            </div>
+          </div>
+
+          {/* RECENT POSTS */}
           <div>
             <h3 className="text-sm tracking-[0.25em] uppercase text-center md:text-left text-[#ff3e7f] mb-6">RECENT POSTS</h3>
 
@@ -100,7 +149,7 @@ export default function Footer() {
             )}
           </div>
 
-          {/* RECENT TWEETS (fake, fra /comments) */}
+          {/* RECENT TWEETS */}
           <div>
             <h3 className="text-sm tracking-[0.25em] uppercase text-center md:text-left text-[#ff3e7f] mb-6">RECENT TWEETS</h3>
 
@@ -122,28 +171,26 @@ export default function Footer() {
           </div>
         </div>
 
-        {/* BUND – SOCIAL + COPYRIGHT også skrevet lokalt */}
-        <div className="mt-12 border-t border-white/10 pt-6 md:pt-8 flex flex-col md:flex-row items-center justify-between gap-6">
+        {/* BUND – SOCIAL + COPYRIGHT (kun desktop/tablet, mobil har egen version ovenfor) */}
+        <div className="hidden md:flex mt-12 border-top border-white/10 pt-8 items-center justify-between gap-6 border-t border-white/10">
           <div className="flex flex-col items-center md:items-start gap-3">
             <p className="text-xs tracking-[0.25em] uppercase opacity-70">STAY CONNECTED WITH US</p>
             <div className="flex gap-3">
-              <div className="flex gap-3">
-                <button className="w-9 h-9 md:w-10 md:h-10 border border-white/80 flex items-center justify-center hover:bg-[#ff3e7f] hover:border-[#ff3e7f] transition-colors">
-                  <FaFacebookF />
-                </button>
+              <button className="w-9 h-9 md:w-10 md:h-10 border border-white/80 flex items-center justify-center hover:bg-[#ff3e7f] hover:border-[#ff3e7f] transition-colors">
+                <FaFacebookF />
+              </button>
 
-                <button className="w-9 h-9 md:w-10 md:h-10 border border-white/80 flex items-center justify-center hover:bg-[#ff3e7f] hover:border-[#ff3e7f] transition-colors">
-                  <FaTwitter />
-                </button>
+              <button className="w-9 h-9 md:w-10 md:h-10 border border-white/80 flex items-center justify-center hover:bg-[#ff3e7f] hover:border-[#ff3e7f] transition-colors">
+                <FaTwitter />
+              </button>
 
-                <button className="w-9 h-9 md:w-10 md:h-10 border border-white/80 flex items-center justify-center hover:bg-[#ff3e7f] hover:border-[#ff3e7f] transition-colors">
-                  <FaInstagram />
-                </button>
+              <button className="w-9 h-9 md:w-10 md:h-10 border border-white/80 flex items-center justify-center hover:bg-[#ff3e7f] hover:border-[#ff3e7f] transition-colors">
+                <FaInstagram />
+              </button>
 
-                <button className="w-9 h-9 md:w-10 md:h-10 border border-white/80 flex items-center justify-center hover:bg-[#ff3e7f] hover:border-[#ff3e7f] transition-colors">
-                  <FaSnapchatGhost />
-                </button>
-              </div>
+              <button className="w-9 h-9 md:w-10 md:h-10 border border-white/80 flex items-center justify-center hover:bg-[#ff3e7f] hover:border-[#ff3e7f] transition-colors">
+                <FaSnapchatGhost />
+              </button>
             </div>
           </div>
 
