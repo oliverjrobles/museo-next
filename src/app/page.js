@@ -8,6 +8,7 @@ import EventsCarousel from "./components/EventsCarousel";
 import TestimonialCarousel from "./components/TestimonialCarousel";
 import BlogSection from "./components/Blog";
 import Newsletter from "./components/Newsletter";
+import TrackPlayer from "./components/TrackPlayer";
 import VideoCarousel from "./components/VideoCarousel";
 
 export default function HomePage() {
@@ -18,6 +19,7 @@ export default function HomePage() {
       <Section1 />
       <EventsCarousel />
       <Gallery />
+      <TrackPlayer />
       <VideoCarousel />
       <TestimonialCarousel />
       <BlogSection />
