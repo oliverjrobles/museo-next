@@ -12,6 +12,7 @@ export default function Navbar() {
   const isHome = pathname === "/";
   const isBlog = pathname === "/blog";
   const isBook = pathname === "/book";
+  const isContact = pathname === "/contact";
 
   return (
     <nav className="relative overflow-hidden bg-[#060008] text-white border-y-2 border-[#ff2b80]">
@@ -54,9 +55,9 @@ export default function Navbar() {
 
           {/* CONTACT + LOGIN scroller stadig til sektioner på home */}
           <li>
-            <a href="#contact" className="transition-colors hover:text-[#ff2b80]">
+            <Link href="/contact" className={isContact ? "text-[#ff2b80]" : "transition-colors hover:text-[#ff2b80]"}>
               Contact us
-            </a>
+            </Link>
           </li>
           <li>
             <a href="#login" className="transition-colors hover:text-[#ff2b80]">
@@ -109,9 +110,9 @@ export default function Navbar() {
             </li>
 
             <li>
-              <a href="#contact" onClick={() => setIsOpen(false)} className="text-white">
+              <Link href="/contact" onClick={() => setIsOpen(false)} className={isContact ? "text-[#ff2b80]" : "text-white"}>
                 Contact us
-              </a>
+              </Link>
             </li>
             <li>
               <a href="#login" onClick={() => setIsOpen(false)} className="text-white">

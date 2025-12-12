@@ -13,6 +13,8 @@ export default function BookingForm() {
     comment: "",
   });
 
+  const [submitted, setSubmitted] = useState(false);
+
   function handleChange(e) {
     const { name, value } = e.target;
     setForm((prev) => ({ ...prev, [name]: value }));
@@ -21,16 +23,16 @@ export default function BookingForm() {
   function handleSubmit(e) {
     e.preventDefault();
 
-    // basic "real form" behaviour
     const reservation = {
       ...form,
       guests: Number(form.guests || 0),
     };
 
     console.log("Reservation submitted:", reservation);
-    alert("Your table request has been sent! (check console for data)");
 
-    // reset form
+    setSubmitted(true);
+
+    // reset form fields
     setForm({
       name: "",
       email: "",
@@ -51,27 +53,38 @@ export default function BookingForm() {
           {/* ROW 1 */}
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <input type="text" name="name" value={form.name} onChange={handleChange} placeholder="Your Name" required className="h-12 border border-[#8c8c8c] bg-transparent px-4 outline-none placeholder:text-[#b3b3b3]" />
+
             <input type="email" name="email" value={form.email} onChange={handleChange} placeholder="Your Email" required className="h-12 border border-[#8c8c8c] bg-transparent px-4 outline-none placeholder:text-[#b3b3b3]" />
           </div>
 
           {/* ROW 2 */}
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <input type="text" name="tableNumber" value={form.tableNumber} onChange={handleChange} placeholder="Table Number" required className="h-12 border border-[#8c8c8c] bg-transparent px-4 outline-none placeholder:text-[#b3b3b3]" />
-            <input type="number" min="1" name="guests" value={form.guests} onChange={handleChange} placeholder="Number of Guests" required className="h-12 border border-[#8c8c8c] bg-transparent px-4 outline-none placeholder:text-[#b3b3b3] [-moz-appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none" />
+
+            <input
+              type="number"
+              name="guests"
+              min="1"
+              value={form.guests}
+              onChange={handleChange}
+              placeholder="Number of Guests"
+              required
+              className="h-12 border border-[#8c8c8c] bg-transparent px-4 outline-none placeholder:text-[#b3b3b3]
+              [-moz-appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none"
+            />
           </div>
 
           {/* ROW 3 */}
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div className="relative">
               <input type="date" name="date" value={form.date} onChange={handleChange} required className="h-12 w-full border border-[#8c8c8c] bg-transparent px-4 pr-10 text-sm outline-none placeholder:text-[#b3b3b3]" />
-              {/* lille “v” kan erstattes af rigtig ikon hvis du vil */}
               <span className="pointer-events-none absolute right-4 top-1/2 -translate-y-1/2 text-xs">▼</span>
             </div>
 
             <input type="tel" name="contactNumber" value={form.contactNumber} onChange={handleChange} placeholder="Your Contact Number" required className="h-12 border border-[#8c8c8c] bg-transparent px-4 outline-none placeholder:text-[#b3b3b3]" />
           </div>
 
-          {/* COMMENT */}
+          {/* COMMENT FIELD */}
           <div>
             <textarea name="comment" value={form.comment} onChange={handleChange} placeholder="Your Comment" rows={6} className="w-full border border-[#8c8c8c] bg-transparent p-4 outline-none placeholder:text-[#b3b3b3] resize-none" />
           </div>
@@ -82,6 +95,12 @@ export default function BookingForm() {
               Reserve
             </button>
           </div>
+
+          {submitted && (
+            <div className="mt-4 flex justify-center">
+              <p className="text-pink-500 text-sm text-center">Your reservation has been sent!</p>
+            </div>
+          )}
         </form>
       </div>
     </section>

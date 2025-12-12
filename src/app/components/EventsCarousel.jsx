@@ -113,7 +113,7 @@ export default function EventsCarousel() {
     <section className="py-16 md:py-20 bg-gradient-to-b from-[#000000] via-[#120012] to-[#050007] text-white">
       <div className="text-center mb-8 md:mb-10">
         <h2 className="text-2xl md:text-4xl tracking-[0.25em] uppercase">EVENTS OF THE MONTH</h2>
-        <img src="/assets/bottom_line2.png" alt="underline" className="mx-auto mt-2 h-[6px] w-auto max-w-[220px] opacity-90 object-contain" />
+        <img src="/assets/bottom_line2.png" alt="underline" className="mx-auto mt-2 h-6 w-auto max-w-[220px] opacity-90 object-contain" />
       </div>
 
       <div className="mx-auto w-[92%] max-w-5xl overflow-hidden rounded-md">
