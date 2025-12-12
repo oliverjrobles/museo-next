@@ -9,6 +9,7 @@ import TestimonialCarousel from "./components/TestimonialCarousel";
 import BlogSection from "./components/Blog";
 import Newsletter from "./components/Newsletter";
 import TrackPlayer from "./components/TrackPlayer";
+import VideoCarousel from "./components/VideoCarousel";
 
 export default function HomePage() {
   return (
@@ -19,6 +20,7 @@ export default function HomePage() {
       <EventsCarousel />
       <Gallery />
       <TrackPlayer />
+      <VideoCarousel />
       <TestimonialCarousel />
       <BlogSection />
       <Newsletter />

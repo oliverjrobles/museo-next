@@ -56,7 +56,7 @@ export default function BlogPage() {
       <main className="min-h-screen bg-black text-white">
         {/* HERO */}
         <section className="relative h-40 md:h-56 bg-cover bg-center" style={{ backgroundImage: "url('/assets/bg/footerbg.jpg')" }}>
-          <div className="absolute inset-0 bg-black/60" />
+          <div className="absolute inset-0 bg-black/90" />
 
           <div className="relative z-10 h-full flex flex-col items-center justify-center text-center">
             <h1 className="text-2xl md:text-3xl tracking-[0.3em] uppercase">Blog</h1>

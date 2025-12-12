@@ -95,13 +95,13 @@ export default function BlogDetailPage() {
       <main className="min-h-screen bg-black text-white">
         {/* HERO –*/}
         <section className="relative h-40 md:h-56 bg-cover bg-center" style={{ backgroundImage: "url('/assets/bg/footerbg.jpg')" }}>
-          <div className="absolute inset-0 bg-black/70" />
+          <div className="absolute inset-0 bg-black/90" />
 
           <div className="relative z-10 h-full flex flex-col items-center justify-center text-center px-4">
-            <h1 className="text-sm md:text-base tracking-[0.3em] uppercase">Blog Post</h1>
+            <h1 className="text-sm md:text-3xl tracking-[0.3em] uppercase">Blog Post</h1>
 
             <div className="mt-3 flex justify-center">
-              <img src="/assets/bottom_line2.png" alt="underline" className="h-5" />
+              <img src="/assets/bottom_line2.png" alt="underline" className="h-6" />
             </div>
           </div>
         </section>
