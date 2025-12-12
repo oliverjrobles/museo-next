@@ -1,8 +1,9 @@
 "use client";
 
 import React, { useEffect, useState } from "react";
+import { FaFacebookF, FaTwitter, FaSnapchatGhost } from "react-icons/fa";
 
-// Fallback-billeder på API-serveren – bruges kun når API'et virker
+// Fallback-billeder fra API-serveren
 const FALLBACK_TESTIMONIAL_IMAGES = ["testimonial_1.jpg", "testimonial_2.jpg", "testimonial_3.jpg"];
 
 export default function TestimonialsCarousel() {
@@ -16,44 +17,29 @@ export default function TestimonialsCarousel() {
         const data = await res.json();
 
         const mapped = data.map((item, i) => {
-          // ---- BILLEDE FRA API ELLER INDEX-BASERET FALLBACK ----
           let imagePath = item.imageUrl || item.image || item.photo || item.avatar || item.img || item.picture;
 
-          // hvis backend ikke har billed-felt, brug testimonial_1/2/3.jpg
           if (!imagePath) {
             imagePath = FALLBACK_TESTIMONIAL_IMAGES[i % FALLBACK_TESTIMONIAL_IMAGES.length];
           }
 
           let imageUrl = null;
-          if (imagePath) {
-            if (typeof imagePath === "string" && imagePath.startsWith("http")) {
-              imageUrl = imagePath;
-            } else {
-              if (!imagePath.startsWith("/")) {
-                imagePath = `/file-bucket/${imagePath}`;
-              }
-              imageUrl = `${process.env.NEXT_PUBLIC_API_URL}${imagePath}`;
-            }
+          if (typeof imagePath === "string" && imagePath.startsWith("http")) {
+            imageUrl = imagePath;
+          } else {
+            if (!imagePath.startsWith("/")) imagePath = `/file-bucket/${imagePath}`;
+            imageUrl = `${process.env.NEXT_PUBLIC_API_URL}${imagePath}`;
           }
 
-          // ---- NAVN ----
           const name = item.name || item.fullName || item.author || item.title || "John Doe";
-
-          // ---- TEKST / QUOTE ----
           const text = item.text || item.description || item.content || item.quote || item.message || "";
 
-          return {
-            id: item.id ?? i,
-            name,
-            text,
-            imageUrl,
-          };
+          return { id: item.id ?? i, name, text, imageUrl };
         });
 
         setItems(mapped);
       } catch (err) {
-        console.error("Kunne ikke hente testimonials fra API", err);
-        // API nede -> ingen items, ingen billeder
+        console.error("Fejl ved hentning af testimonials", err);
         setItems([]);
       }
     }
@@ -61,19 +47,11 @@ export default function TestimonialsCarousel() {
     fetchTestimonials();
   }, []);
 
-  // LOADING / INGEN DATA
   if (items.length === 0) {
     return (
-      <section
-        className="py-16 md:py-20 text-white text-center bg-cover bg-center relative"
-        style={{
-          backgroundImage: "url('/assets/bg/footerbg.jpg')",
-        }}
-      >
+      <section className="py-16 md:py-20 text-white text-center bg-cover bg-center relative" style={{ backgroundImage: "url('/assets/bg/footerbg.jpg')" }}>
         <div className="absolute inset-0 bg-black/90" />
-        <div className="relative z-10 max-w-md md:max-w-xl mx-auto px-4 sm:px-6">
-          <p className="opacity-80 text-sm md:text-base">Ingen testimonials tilgængelige.</p>
-        </div>
+        <p className="relative z-10 opacity-80 text-sm md:text-base">Ingen testimonials tilgængelige.</p>
       </section>
     );
   }
@@ -81,16 +59,9 @@ export default function TestimonialsCarousel() {
   const active = items[current];
 
   return (
-    <section
-      className="py-16 md:py-20 text-white bg-cover bg-center relative"
-      style={{
-        backgroundImage: "url('/assets/bg/footerbg.jpg')",
-      }}
-    >
-      {/* MØRKT OVERLAY */}
+    <section className="py-16 md:py-20 text-white bg-cover bg-center relative" style={{ backgroundImage: "url('/assets/bg/footerbg.jpg')" }}>
       <div className="absolute inset-0 bg-black/90" />
 
-      {/* INDHOLD – MOBIL: SMAL, DESKTOP: BREDERE */}
       <div className="relative z-10 max-w-md md:max-w-4xl mx-auto px-4 sm:px-6 text-center">
         {/* BILLEDE */}
         {active.imageUrl && (
@@ -105,13 +76,19 @@ export default function TestimonialsCarousel() {
         {/* TEKST */}
         <p className="text-xs sm:text-sm md:text-base leading-relaxed opacity-90 max-w-md md:max-w-3xl mx-auto">{active.text}</p>
 
-        {/* SOCIAL-KNAPPER */}
+        {/* ----- SOCIAL IKONER ----- */}
         <div className="mt-6 md:mt-8 flex justify-center gap-3 md:gap-4">
-          {["f", "t", "s"].map((label) => (
-            <button key={label} type="button" className="w-9 h-9 md:w-10 md:h-10 border border-white/80 flex items-center justify-center text-xs md:text-sm uppercase tracking-widest hover:bg-[#ff3e7f] hover:border-[#ff3e7f] transition-colors">
-              {label}
-            </button>
-          ))}
+          <button className="w-9 h-9 md:w-10 md:h-10 border border-white/80 flex items-center justify-center text-lg hover:bg-[#ff3e7f] hover:border-[#ff3e7f] transition-colors">
+            <FaFacebookF />
+          </button>
+
+          <button className="w-9 h-9 md:w-10 md:h-10 border border-white/80 flex items-center justify-center text-lg hover:bg-[#ff3e7f] hover:border-[#ff3e7f] transition-colors">
+            <FaTwitter />
+          </button>
+
+          <button className="w-9 h-9 md:w-10 md:h-10 border border-white/80 flex items-center justify-center text-lg hover:bg-[#ff3e7f] hover:border-[#ff3e7f] transition-colors">
+            <FaSnapchatGhost />
+          </button>
         </div>
 
         {/* DOTS */}

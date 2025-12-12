@@ -1,7 +1,10 @@
 "use client";
 
-import { useState } from "react";
-import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
+import { useRef, useState } from "react";
+import { FaChevronLeft, FaChevronRight, FaPlay } from "react-icons/fa";
+import { Card, CardContent, CardFooter } from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
+import { AspectRatio } from "@/components/ui/aspect-ratio";
 import Image from "next/image";
 
 const videos = [
@@ -12,48 +15,126 @@ const videos = [
 
 export default function VideoCarousel() {
   const [current, setCurrent] = useState(0);
-  const currentVideo = videos[current];
+  const [isPlaying, setIsPlaying] = useState(false);
+  const videoRef = useRef(null);
 
-  function prev() {
-    setCurrent((i) => (i - 1 + videos.length) % videos.length);
+  const video = videos[current];
+
+  function handlePrev() {
+    setCurrent((i) => {
+      const nextIndex = (i - 1 + videos.length) % videos.length;
+      setIsPlaying(false);
+      if (videoRef.current) {
+        videoRef.current.pause();
+        videoRef.current.currentTime = 0;
+      }
+      return nextIndex;
+    });
   }
-  function next() {
-    setCurrent((i) => (i + 1) % videos.length);
+
+  function handleNext() {
+    setCurrent((i) => {
+      const nextIndex = (i + 1) % videos.length;
+      setIsPlaying(false);
+      if (videoRef.current) {
+        videoRef.current.pause();
+        videoRef.current.currentTime = 0;
+      }
+      return nextIndex;
+    });
+  }
+
+  function togglePlay() {
+    if (!videoRef.current) return;
+
+    if (videoRef.current.paused) {
+      videoRef.current.play();
+      setIsPlaying(true);
+    } else {
+      videoRef.current.pause();
+      setIsPlaying(false);
+    }
+  }
+
+  function handleEnded() {
+    setIsPlaying(false);
   }
 
   return (
     <section className="bg-[#050505] text-white py-16">
       <div className="mx-auto max-w-6xl px-4">
-        {/* headeren */}
-        <div className="text-center mb-10">
+        {/* OVERSKRIFT + UNDERLINE */}
+        <div className="text-center mb-8">
           <h2 className="text-2xl sm:text-3xl tracking-[0.35em] uppercase">Latest Video</h2>
-
-          {/* radiant underlinje */}
-          <div className="relative w-full max-w-[300px] mx-auto mt-2">
+          <div className="relative w-full max-w-[260px] mx-auto mt-3">
             <Image src="/assets/bottom_line.png" alt="Section underline" width={600} height={40} className="mx-auto opacity-90" />
           </div>
         </div>
 
-        {/* video wrapper */}
-        <div className="mx-auto mb-8 max-w-5xl bg-black">
-          <div className="relative w-full aspect-[16/9] overflow-hidden">
-            <video key={currentVideo.id} src={currentVideo.src} controls className="h-full w-full object-cover" />
-          </div>
-        </div>
+        {/* VIDEO-KORT */}
+        <Card className="bg-black/80 border-none shadow-xl max-w-5xl mx-auto">
+          <CardContent className="p-0">
+            <div className="relative">
+              <AspectRatio ratio={16 / 9}>
+                <video
+                  key={video.id}
+                  ref={videoRef}
+                  src={video.src}
+                  className="h-full w-full object-cover"
+                  onEnded={handleEnded}
+                  onClick={togglePlay} // klik på video toggler play/pause
+                />
+              </AspectRatio>
 
-        {/* navigations knapper */}
-        <div className="flex justify-center gap-4">
-          <button type="button" onClick={prev} className="flex h-10 w-10 items-center justify-center border border-white text-white text-sm hover:bg-pink-600 transition">
-            <FaChevronLeft className="text-xs" />
-          </button>
+              {/* PLAY OVERLAY – KUN NÅR VIDEOEN IKKE SPILLER */}
+              {!isPlaying && (
+                <Button
+                  type="button"
+                  variant="outline"
+                  size="icon"
+                  onClick={togglePlay}
+                  className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2
+                             w-20 h-20 rounded-full border-4 border-[#ff3e7f]
+                             bg-black/60 hover:bg-black/80
+                             flex items-center justify-center"
+                >
+                  <FaPlay className="w-8 h-8 text-[#ff3e7f] ml-1" />
+                </Button>
+              )}
+            </div>
+          </CardContent>
 
-          <button type="button" onClick={next} className="flex h-10 w-10 items-center justify-center border border-white text-white text-sm hover:bg-pink-600 transition">
-            <FaChevronRight className="text-xs" />
-          </button>
-        </div>
+          {/* NAVIGATION KNAPPER */}
+          <CardFooter className="flex justify-center gap-4 py-4">
+            <Button
+              type="button"
+              variant="outline"
+              size="icon"
+              onClick={handlePrev}
+              className="w-12 h-12 rounded-xl border-2 border-white bg-black/40
+                         flex items-center justify-center hover:bg-[#ff3e7f] hover:border-[#ff3e7f] 
+                         transition"
+              aria-label="Previous video"
+            >
+              <FaChevronLeft className="h-5 w-5 text-white" />
+            </Button>
 
-        {/* VIDEO TITLE */}
-        <p className="mt-4 text-center text-sm text-gray-300">{currentVideo.title}</p>
+            <Button
+              type="button"
+              variant="outline"
+              size="icon"
+              onClick={handleNext}
+              className="w-12 h-12 rounded-xl border-2 border-white bg-black/40
+                         flex items-center justify-center hover:bg-[#ff3e7f] hover:border-[#ff3e7f] 
+                         transition"
+              aria-label="Next video"
+            >
+              <FaChevronRight className="h-5 w-5 text-white" />
+            </Button>
+          </CardFooter>
+        </Card>
+
+        {/* TITEL UNDER VIDEOEN */}
       </div>
     </section>
   );
