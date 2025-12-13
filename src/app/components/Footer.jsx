@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import { FaFacebookF, FaTwitter, FaInstagram, FaSnapchatGhost } from "react-icons/fa";
 import React, { useEffect, useState } from "react";
 
@@ -136,12 +137,16 @@ export default function Footer() {
             {posts.length > 0 ? (
               <div className="space-y-5">
                 {posts.map((post) => (
-                  <div key={post.id} className="flex items-start gap-4">
-                    {post.imageUrl && <img src={post.imageUrl} alt={post.title} className="w-20 h-20 object-cover flex-shrink-0" />}
+                  <Link
+                    key={post.id}
+                    href={`/blog/${post.id}`} // 👈 matcher /blog/[id]
+                    className="flex items-start gap-4 group"
+                  >
+                    {post.imageUrl && <img src={post.imageUrl} alt={post.title} className="w-20 h-20 object-cover flex-shrink-0 group-hover:opacity-80 transition-opacity" />}
                     <div className="text-sm">
-                      <p className="mb-2 leading-snug opacity-90">{post.title}</p>
+                      <p className="mb-2 leading-snug opacity-90 group-hover:text-[#ff3e7f] transition-colors">{post.title}</p>
                     </div>
-                  </div>
+                  </Link>
                 ))}
               </div>
             ) : (
