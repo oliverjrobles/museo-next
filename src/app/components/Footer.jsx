@@ -181,19 +181,19 @@ export default function Footer() {
           <div className="flex flex-col items-center md:items-start gap-3">
             <p className="text-xs tracking-[0.25em] uppercase opacity-70">STAY CONNECTED WITH US</p>
             <div className="flex gap-3">
-              <button className="w-9 h-9 md:w-10 md:h-10 border border-white/80 flex items-center justify-center hover:bg-[#ff3e7f] hover:border-[#ff3e7f] transition-colors">
+              <button aria-label="Visit our Facebook page" className="w-9 h-9 md:w-10 md:h-10 border border-white/80 flex items-center justify-center hover:bg-[#ff3e7f] hover:border-[#ff3e7f] transition-colors">
                 <FaFacebookF />
               </button>
 
-              <button className="w-9 h-9 md:w-10 md:h-10 border border-white/80 flex items-center justify-center hover:bg-[#ff3e7f] hover:border-[#ff3e7f] transition-colors">
+              <button aria-label="Visit our Twitter page" className="w-9 h-9 md:w-10 md:h-10 border border-white/80 flex items-center justify-center hover:bg-[#ff3e7f] hover:border-[#ff3e7f] transition-colors">
                 <FaTwitter />
               </button>
 
-              <button className="w-9 h-9 md:w-10 md:h-10 border border-white/80 flex items-center justify-center hover:bg-[#ff3e7f] hover:border-[#ff3e7f] transition-colors">
+              <button aria-label="Visit our Instagram page" className="w-9 h-9 md:w-10 md:h-10 border border-white/80 flex items-center justify-center hover:bg-[#ff3e7f] hover:border-[#ff3e7f] transition-colors">
                 <FaInstagram />
               </button>
 
-              <button className="w-9 h-9 md:w-10 md:h-10 border border-white/80 flex items-center justify-center hover:bg-[#ff3e7f] hover:border-[#ff3e7f] transition-colors">
+              <button aria-label="Visit our Snapchat page" className="w-9 h-9 md:w-10 md:h-10 border border-white/80 flex items-center justify-center hover:bg-[#ff3e7f] hover:border-[#ff3e7f] transition-colors">
                 <FaSnapchatGhost />
               </button>
             </div>
