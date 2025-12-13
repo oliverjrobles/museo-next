@@ -88,16 +88,16 @@ export default function Footer() {
           <div className="space-y-3">
             <p className="text-xs tracking-[0.25em] uppercase">Stay Connected With Us</p>
             <div className="flex justify-center gap-3">
-              <button className="w-9 h-9 border border-white/80 flex items-center justify-center hover:bg-[#ff3e7f] hover:border-[#ff3e7f] transition-colors">
+              <button aria-label="Visit our Facebook page" className="w-9 h-9 border border-white/80 flex items-center justify-center hover:bg-[#ff3e7f] hover:border-[#ff3e7f] transition-colors">
                 <FaFacebookF />
               </button>
-              <button className="w-9 h-9 border border-white/80 flex items-center justify-center hover:bg-[#ff3e7f] hover:border-[#ff3e7f] transition-colors">
+              <button aria-label="Visit our Twitter page" className="w-9 h-9 border border-white/80 flex items-center justify-center hover:bg-[#ff3e7f] hover:border-[#ff3e7f] transition-colors">
                 <FaTwitter />
               </button>
-              <button className="w-9 h-9 border border-white/80 flex items-center justify-center hover:bg-[#ff3e7f] hover:border-[#ff3e7f] transition-colors">
+              <button aria-label="Visit our Snapchat page" className="w-9 h-9 border border-white/80 flex items-center justify-center hover:bg-[#ff3e7f] hover:border-[#ff3e7f] transition-colors">
                 <FaSnapchatGhost />
               </button>
-              <button className="w-9 h-9 border border-white/80 flex items-center justify-center hover:bg-[#ff3e7f] hover:border-[#ff3e7f] transition-colors">
+              <button aria-label="Visit our Snapchat page" className="w-9 h-9 border border-white/80 flex items-center justify-center hover:bg-[#ff3e7f] hover:border-[#ff3e7f] transition-colors">
                 <FaInstagram />
               </button>
             </div>

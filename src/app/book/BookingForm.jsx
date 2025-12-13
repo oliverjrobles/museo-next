@@ -52,40 +52,85 @@ export default function BookingForm() {
         <form onSubmit={handleSubmit} className="space-y-4 text-sm text-white">
           {/* ROW 1 */}
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            <input type="text" name="name" value={form.name} onChange={handleChange} placeholder="Your Name" required className="h-12 border border-[#8c8c8c] bg-transparent px-4 outline-none placeholder:text-[#b3b3b3]" />
+            {/* navn */}
+            <div>
+              <label htmlFor="name" className="sr-only">
+                Your Name
+              </label>
 
-            <input type="email" name="email" value={form.email} onChange={handleChange} placeholder="Your Email" required className="h-12 border border-[#8c8c8c] bg-transparent px-4 outline-none placeholder:text-[#b3b3b3]" />
+              <input id="name" type="text" name="name" value={form.name} onChange={handleChange} placeholder="Your Name" required className="h-12 w-full border border-[#8c8c8c] bg-transparent px-4 outline-none placeholder:text-[#b3b3b3]" />
+            </div>
+
+            {/* email */}
+            <div>
+              <label htmlFor="email" className="sr-only">
+                Your Email
+              </label>
+
+              <input id="email" type="email" name="email" value={form.email} onChange={handleChange} placeholder="Your Email" required className="h-12 w-full border border-[#8c8c8c] bg-transparent px-4 outline-none placeholder:text-[#b3b3b3]" />
+            </div>
           </div>
 
           {/* ROW 2 */}
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            <input type="text" name="tableNumber" value={form.tableNumber} onChange={handleChange} placeholder="Table Number" required className="h-12 border border-[#8c8c8c] bg-transparent px-4 outline-none placeholder:text-[#b3b3b3]" />
+            {/* TABLE NUMBER */}
+            <div>
+              <label htmlFor="tableNumber" className="sr-only">
+                Table Number
+              </label>
 
-            <input
-              type="number"
-              name="guests"
-              min="1"
-              value={form.guests}
-              onChange={handleChange}
-              placeholder="Number of Guests"
-              required
-              className="h-12 border border-[#8c8c8c] bg-transparent px-4 outline-none placeholder:text-[#b3b3b3]
-              [-moz-appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none"
-            />
+              <input id="tableNumber" type="text" name="tableNumber" value={form.tableNumber} onChange={handleChange} placeholder="Table Number" required className="h-12 w-full border border-[#8c8c8c] bg-transparent px-4 outline-none placeholder:text-[#b3b3b3]" />
+            </div>
+
+            {/* NUMBER OF GUESTS */}
+            <div>
+              <label htmlFor="guests" className="sr-only">
+                Number of Guests
+              </label>
+
+              <input
+                id="guests"
+                type="number"
+                name="guests"
+                min="1"
+                value={form.guests}
+                onChange={handleChange}
+                placeholder="Number of Guests"
+                required
+                className="h-12 w-full border border-[#8c8c8c] bg-transparent px-4 outline-none placeholder:text-[#b3b3b3]
+      [-moz-appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none"
+              />
+            </div>
           </div>
 
           {/* ROW 3 */}
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            {/* Select Date – samme stil som de andre inputs */}
-            <input type="text" name="date" value={form.date} onChange={handleChange} placeholder="Date Of Reservation" required className="h-12 border border-[#8c8c8c] bg-transparent px-4 outline-none placeholder:text-[#b3b3b3]" />
+            {/* DATE OF RESERVATION */}
+            <div>
+              <label htmlFor="date" className="sr-only">
+                Date of Reservation
+              </label>
 
-            {/* Contact Number – uændret */}
-            <input type="tel" name="contactNumber" value={form.contactNumber} onChange={handleChange} placeholder="Your Contact Number" required className="h-12 border border-[#8c8c8c] bg-transparent px-4 outline-none placeholder:text-[#b3b3b3]" />
+              <input id="date" type="text" name="date" value={form.date} onChange={handleChange} placeholder="Date of Reservation" required className="h-12 w-full border border-[#8c8c8c] bg-transparent px-4 outline-none placeholder:text-[#b3b3b3]" />
+            </div>
+
+            {/* CONTACT NUMBER */}
+            <div>
+              <label htmlFor="contactNumber" className="sr-only">
+                Your Contact Number
+              </label>
+
+              <input id="contactNumber" type="tel" name="contactNumber" value={form.contactNumber} onChange={handleChange} placeholder="Your Contact Number" required className="h-12 w-full border border-[#8c8c8c] bg-transparent px-4 outline-none placeholder:text-[#b3b3b3]" />
+            </div>
           </div>
 
           {/* COMMENT FIELD */}
           <div>
-            <textarea name="comment" value={form.comment} onChange={handleChange} placeholder="Your Comment" rows={6} className="w-full border border-[#8c8c8c] bg-transparent p-4 outline-none placeholder:text-[#b3b3b3] resize-none" />
+            <label htmlFor="comment" className="sr-only">
+              Your Comment
+            </label>
+
+            <textarea id="comment" name="comment" value={form.comment} onChange={handleChange} placeholder="Your Comment" rows={6} className="w-full border border-[#8c8c8c] bg-transparent p-4 outline-none placeholder:text-[#b3b3b3] resize-none" />
           </div>
 
           {/* BUTTON */}
