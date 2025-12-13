@@ -76,11 +76,10 @@ export default function BookingForm() {
 
           {/* ROW 3 */}
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            <div className="relative">
-              <input type="date" name="date" value={form.date} onChange={handleChange} required className="h-12 w-full border border-[#8c8c8c] bg-transparent px-4 pr-10 text-sm outline-none placeholder:text-[#b3b3b3]" />
-              <span className="pointer-events-none absolute right-4 top-1/2 -translate-y-1/2 text-xs">▼</span>
-            </div>
+            {/* Select Date – samme stil som de andre inputs */}
+            <input type="text" name="date" value={form.date} onChange={handleChange} placeholder="Date Of Reservation" required className="h-12 border border-[#8c8c8c] bg-transparent px-4 outline-none placeholder:text-[#b3b3b3]" />
 
+            {/* Contact Number – uændret */}
             <input type="tel" name="contactNumber" value={form.contactNumber} onChange={handleChange} placeholder="Your Contact Number" required className="h-12 border border-[#8c8c8c] bg-transparent px-4 outline-none placeholder:text-[#b3b3b3]" />
           </div>
 
