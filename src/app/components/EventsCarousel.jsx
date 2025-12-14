@@ -40,6 +40,8 @@ export default function EventsCarousel() {
 
           let displayDate = "";
           let displayTime = "";
+          let isoDate = "";
+          let isoTime = "";
 
           if (rawDateTime) {
             const d = new Date(rawDateTime);
@@ -53,6 +55,9 @@ export default function EventsCarousel() {
                 hour: "2-digit",
                 minute: "2-digit",
               });
+
+              isoDate = d.toISOString().slice(0, 10); // YYYY-MM-DD
+              isoTime = d.toISOString().slice(11, 16); // HH:MM
             } else {
               displayDate = String(rawDateTime);
             }
@@ -65,6 +70,8 @@ export default function EventsCarousel() {
             location: item.location || item.venue || "",
             date: displayDate,
             time: displayTime,
+            isoDate,
+            isoTime,
             imageUrl,
           };
         });
@@ -125,9 +132,12 @@ export default function EventsCarousel() {
                   <img src={event.imageUrl} alt={event.title} className="w-full h-72 md:h-80 object-cover transform transition-transform duration-300 group-hover:scale-105" />
 
                   {/* PINK BOTTOM BAR */}
+
                   <div className="absolute inset-x-0 bottom-0 z-20 bg-[#ff3e7f] text-white flex flex-wrap gap-4 px-4 py-2 text-xs md:text-sm font-semibold">
-                    {event.date && <span>{event.date}</span>}
-                    {event.time && <span>{event.time}</span>}
+                    {event.date && <time dateTime={event.isoDate || undefined}>{event.date}</time>}
+
+                    {event.time && <time dateTime={event.isoTime || undefined}>{event.time}</time>}
+
                     {event.location && <span className="truncate">{event.location}</span>}
                   </div>
 
@@ -137,7 +147,9 @@ export default function EventsCarousel() {
                     <div className="absolute bottom-0 right-0 w-0 h-0 border-b-[70px] border-l-[70px] border-b-[#ff3e7f] border-l-transparent" />
 
                     <div className="absolute inset-x-0 top-10 flex justify-center z-20">
-                      <button className="px-6 py-2 rounded bg-[#ff3e7f] text-xs md:text-sm font-semibold">Book Now</button>
+                      <button type="button" className="px-6 py-2 rounded bg-[#ff3e7f] text-xs md:text-sm font-semibold">
+                        Book Now
+                      </button>
                     </div>
 
                     <div className="absolute inset-x-0 bottom-[48px] z-10 px-6">

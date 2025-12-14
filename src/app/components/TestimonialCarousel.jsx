@@ -85,13 +85,13 @@ export default function TestimonialsCarousel() {
 
         {/* SOCIAL IKONER */}
         <div className="mt-6 md:mt-8 flex justify-center gap-3 md:gap-4">
-          <button className="w-9 h-9 md:w-10 md:h-10 border border-white/80 flex items-center justify-center text-lg hover:bg-[#ff3e7f] hover:border-[#ff3e7f] transition-colors">
+          <button type="button" aria-label="Visit Our Facebook page" className="w-9 h-9 md:w-10 md:h-10 border border-white/80 flex items-center justify-center text-lg hover:bg-[#ff3e7f] hover:border-[#ff3e7f] transition-colors">
             <FaFacebookF />
           </button>
-          <button className="w-9 h-9 md:w-10 md:h-10 border border-white/80 flex items-center justify-center text-lg hover:bg-[#ff3e7f] hover:border-[#ff3e7f] transition-colors">
+          <button type="button" aria-label="Visit Our Twitter page" className="w-9 h-9 md:w-10 md:h-10 border border-white/80 flex items-center justify-center text-lg hover:bg-[#ff3e7f] hover:border-[#ff3e7f] transition-colors">
             <FaTwitter />
           </button>
-          <button className="w-9 h-9 md:w-10 md:h-10 border border-white/80 flex items-center justify-center text-lg hover:bg-[#ff3e7f] hover:border-[#ff3e7f] transition-colors">
+          <button type="button" aria-label="Visit Our Snapchat page" className="w-9 h-9 md:w-10 md:h-10 border border-white/80 flex items-center justify-center text-lg hover:bg-[#ff3e7f] hover:border-[#ff3e7f] transition-colors">
             <FaSnapchatGhost />
           </button>
         </div>
