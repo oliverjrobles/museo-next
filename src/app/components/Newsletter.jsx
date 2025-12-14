@@ -22,7 +22,7 @@ export default function Newsletter() {
         <h2 className="text-lg md:text-xl tracking-[0.25em] uppercase mb-4">Want the latest night club news</h2>
 
         <p className="text-sm md:text-base text-gray-300 mb-12">
-          Subscribe to our newsletter and never miss an <span className="text-pink-500">Event</span>
+          Subscribe to our newsletter and never miss an <span className="text-pink-500"> Event</span>
         </p>
 
         {/* FORM */}
