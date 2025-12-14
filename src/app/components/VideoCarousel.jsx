@@ -90,6 +90,7 @@ export default function VideoCarousel() {
               {!isPlaying && (
                 <Button
                   type="button"
+                  aria-label="Play Video"
                   variant="outline"
                   size="icon"
                   onClick={togglePlay}
