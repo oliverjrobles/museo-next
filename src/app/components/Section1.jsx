@@ -1,6 +1,8 @@
 "use client";
 
 import { useState } from "react";
+import { MdBrunchDining } from "react-icons/md";
+import { BiSolidDrink } from "react-icons/bi";
 
 export default function Section1() {
   // Liste (array) af billeder
@@ -15,13 +17,13 @@ export default function Section1() {
       image: "/assets/content-img/reastaurant_1.jpg",
       title: "Restaurant",
       text: "Enjoy delicious cuisine in an elegant modern setting.",
-      icon: "",
+      icon: <MdBrunchDining />,
     },
     {
       image: "/assets/content-img/thumb2.jpg",
       title: "Bar",
       text: "Relax in luxury with bottle service and private seating.",
-      icon: "",
+      icon: <BiSolidDrink />,
     },
   ];
 
@@ -33,7 +35,7 @@ export default function Section1() {
       <div className="text-center mb-10">
         <h2 className="text-2xl md:text-1xl tracking-[0.3em] uppercase">Welcome in Nightclub</h2>
 
-        {/* Pink linje + grafik */}
+        {/* Pink linje */}
         <div className="mt-4 flex flex-col items-center justify-center gap-2">
           <img src="/assets/bottom_line2.png" alt="underline graphic" className="h-6" />
         </div>
@@ -55,9 +57,9 @@ export default function Section1() {
                 <div className="absolute top-0 left-0 w-16 h-16 bg-pink-500" style={{ clipPath: "polygon(0 0, 100% 0, 0 100%)" }} />
                 <div className="absolute bottom-0 right-0 w-16 h-16 bg-pink-500" style={{ clipPath: "polygon(100% 0, 100% 100%, 0 100%)" }} />
 
-                {/* Ikon-boks (smart emoji + image detection) */}
+                {/* Ikon-boks */}
                 <div className="mb-6 flex items-center justify-center">
-                  <div className="w-20 h-20 border-2 border-pink-500 flex items-center justify-center rounded-sm">{item.icon.startsWith("/") ? <img src={item.icon} alt={`${item.title} icon`} className="w-12 h-12 object-contain" /> : <span className="text-pink-500 text-3xl">{item.icon}</span>}</div>
+                  <div className="w-20 h-20 border-2 border-pink-500 flex items-center justify-center rounded-sm">{typeof item.icon === "string" ? <img src={item.icon} alt={`${item.title} icon`} className="w-12 h-12 object-contain" /> : <span className="text-pink-500 text-4xl">{item.icon}</span>}</div>
                 </div>
 
                 {/* Titel */}
