@@ -1,6 +1,12 @@
 "use client";
 
 import { useEffect, useMemo, useRef, useState } from "react";
+import { HiVolumeUp } from "react-icons/hi";
+import { Button } from "@/components/ui/button";
+import { BsFillSkipBackwardFill } from "react-icons/bs";
+import { BsFillSkipForwardFill } from "react-icons/bs";
+import { IoIosPlay } from "react-icons/io";
+import { FaPause } from "react-icons/fa6";
 
 function fmt(t) {
   if (!Number.isFinite(t)) return "0:00";
@@ -160,21 +166,26 @@ export default function TrackPlayer() {
                 </span>
 
                 <div className="flex items-center gap-5 text-xl md:text-base">
-                  <button type="button" onClick={prev} className="hover:text-white transition" aria-label="Previous track">
-                    ⏮
-                  </button>
+                  {/* Back */}
+                  <Button variant="ghost" size="icon" onClick={prev} aria-label="Previous track" className="text-white hover:text-black">
+                    <BsFillSkipBackwardFill className="text-xl" />
+                  </Button>
 
-                  <button type="button" onClick={togglePlay} className="text-white text-3xl md:text-lg" aria-label={isPlaying ? "Pause" : "Play"}>
-                    {isPlaying ? "⏸" : "▶"}
-                  </button>
+                  {/* Play / Pause */}
+                  <Button variant="ghost" size="icon" onClick={togglePlay} aria-label={isPlaying ? "Pause" : "Play"} className="text-white">
+                    {isPlaying ? <FaPause className="text-2xl md:text-xl" /> : <IoIosPlay className="text-3xl md:text-2xl" />}
+                  </Button>
 
-                  <button type="button" onClick={next} className="hover:text-white transition" aria-label="Next track">
-                    ⏭
-                  </button>
+                  {/* Forward */}
+                  <Button variant="ghost" size="icon" onClick={next} aria-label="Next track" className="text-white hover:text-black">
+                    <BsFillSkipForwardFill className="text-xl" />
+                  </Button>
                 </div>
 
                 <div className="flex items-center gap-2">
-                  <span aria-hidden>🔊</span>
+                  <span aria-hidden>
+                    <HiVolumeUp />
+                  </span>
                   <input type="range" min={0} max={1} step={0.01} value={volume} onChange={changeVolume} className="w-40 md:w-28 accent-pink-500" aria-label="Volume" />
                 </div>
               </div>
