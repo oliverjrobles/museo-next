@@ -7,32 +7,20 @@ const AuthContext = createContext(null);
 export function AuthProvider({ children }) {
   const [user, setUser] = useState(null);
 
-  function login({ email }) {
-    setUser({ email });
+  // gør bare så navbar skifter til "Log out"
+  function login() {
+    setUser({ email: "guest@museo.local" });
   }
 
   function logout() {
     setUser(null);
   }
 
-  return (
-    <AuthContext.Provider
-      value={{
-        user,
-        isLoggedIn: !!user,
-        login,
-        logout,
-      }}
-    >
-      {children}
-    </AuthContext.Provider>
-  );
+  return <AuthContext.Provider value={{ user, isLoggedIn: !!user, login, logout }}>{children}</AuthContext.Provider>;
 }
 
 export function useAuth() {
   const context = useContext(AuthContext);
-  if (!context) {
-    throw new Error("useAuth must be used inside <AuthProvider>");
-  }
+  if (!context) throw new Error("useAuth must be used inside AuthProvider");
   return context;
 }
