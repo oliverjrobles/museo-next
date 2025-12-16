@@ -1,12 +1,11 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useState } from "react";
 
 export default function BookingForm({ selectedTable }) {
   const [form, setForm] = useState({
     name: "",
     email: "",
-    tableNumber: "",
     guests: "",
     date: "",
     contactNumber: "",
@@ -16,14 +15,6 @@ export default function BookingForm({ selectedTable }) {
   const [submitted, setSubmitted] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitError, setSubmitError] = useState("");
-
-  // Når brugeren klikker på et bord, skriv bordnummeret ind i formen
-  useEffect(() => {
-    setForm((prev) => ({
-      ...prev,
-      tableNumber: selectedTable ? String(selectedTable) : "",
-    }));
-  }, [selectedTable]);
 
   function handleChange(e) {
     const { name, value } = e.target;
@@ -36,16 +27,30 @@ export default function BookingForm({ selectedTable }) {
     setSubmitError("");
     setIsSubmitting(true);
 
+    // ✅ SUBMIT-VALIDERING (1–10 guests)
+    const guestsNumber = Number(form.guests);
+
+    if (!selectedTable) {
+      setSubmitError("Please select a table before reserving.");
+      setIsSubmitting(false);
+      return;
+    }
+
+    if (!Number.isFinite(guestsNumber) || guestsNumber < 1 || guestsNumber > 10) {
+      setSubmitError("You can only book a table for 1–10 guests.");
+      setIsSubmitting(false);
+      return;
+    }
+
     try {
-      // Hvis date-input er "YYYY-MM-DD", så laver vi en ISO dato kl. 20:00
+      // ISO dato kl. 20:00
       const isoDate = form.date ? `${form.date}T20:00:00.000Z` : "";
 
-      // Payload matcher jeres API docs (POST /reservations)
       const payload = {
         name: form.name,
         email: form.email,
-        table: String(form.tableNumber),
-        guests: String(form.guests),
+        table: String(selectedTable),
+        guests: String(guestsNumber),
         date: isoDate,
         phone: form.contactNumber,
         comment: form.comment,
@@ -62,16 +67,12 @@ export default function BookingForm({ selectedTable }) {
         throw new Error(`API error ${res.status} ${text}`);
       }
 
-      const created = await res.json().catch(() => null);
-      console.log("Reservation created:", created);
-
       setSubmitted(true);
 
-      // reset form fields (tableNumber bliver sat igen via selectedTable/useEffect)
+      // reset form (bord styres stadig af parent)
       setForm({
         name: "",
         email: "",
-        tableNumber: "",
         guests: "",
         date: "",
         contactNumber: "",
@@ -93,90 +94,51 @@ export default function BookingForm({ selectedTable }) {
         <form onSubmit={handleSubmit} className="space-y-4 text-sm text-white">
           {/* ROW 1 */}
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            <div>
-              <label htmlFor="name" className="sr-only">
-                Your Name
-              </label>
-              <input id="name" type="text" name="name" value={form.name} onChange={handleChange} placeholder="Your Name" required className="h-12 w-full border border-[#8c8c8c] bg-transparent px-4 outline-none placeholder:text-[#b3b3b3]" />
-            </div>
+            <input type="text" name="name" value={form.name} onChange={handleChange} placeholder="Your Name" required className="h-12 w-full border border-[#8c8c8c] bg-transparent px-4 outline-none" />
 
-            <div>
-              <label htmlFor="email" className="sr-only">
-                Your Email
-              </label>
-              <input id="email" type="email" name="email" value={form.email} onChange={handleChange} placeholder="Your Email" required className="h-12 w-full border border-[#8c8c8c] bg-transparent px-4 outline-none placeholder:text-[#b3b3b3]" />
-            </div>
+            <input type="email" name="email" value={form.email} onChange={handleChange} placeholder="Your Email" required className="h-12 w-full border border-[#8c8c8c] bg-transparent px-4 outline-none" />
           </div>
 
           {/* ROW 2 */}
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            <div>
-              <label htmlFor="tableNumber" className="sr-only">
-                Table Number
-              </label>
-              <input id="tableNumber" type="text" name="tableNumber" value={form.tableNumber} onChange={handleChange} placeholder="Table Number" required readOnly className="h-12 w-full border border-[#8c8c8c] bg-transparent px-4 outline-none placeholder:text-[#b3b3b3] cursor-not-allowed opacity-80" />
-            </div>
+            <input type="text" value={selectedTable ?? ""} readOnly placeholder="Table Number" className="h-12 w-full border border-[#8c8c8c] bg-transparent px-4 outline-none opacity-80 cursor-not-allowed" />
 
-            <div>
-              <label htmlFor="guests" className="sr-only">
-                Number of Guests
-              </label>
-              <input
-                id="guests"
-                type="number"
-                name="guests"
-                min="1"
-                value={form.guests}
-                onChange={handleChange}
-                placeholder="Number of Guests"
-                required
-                className="h-12 w-full border border-[#8c8c8c] bg-transparent px-4 outline-none placeholder:text-[#b3b3b3]
-                [-moz-appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none"
-              />
-            </div>
+            <input
+              type="number"
+              name="guests"
+              value={form.guests}
+              onChange={handleChange}
+              placeholder="Number of Guests"
+              required
+              className="h-12 w-full border border-[#8c8c8c] bg-transparent px-4 outline-none
+              [-moz-appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none"
+            />
           </div>
 
           {/* ROW 3 */}
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            <div>
-              <label htmlFor="date" className="sr-only">
-                Date of Reservation
-              </label>
-              <input id="date" type="date" name="date" value={form.date} onChange={handleChange} required className="h-12 w-full border border-[#8c8c8c] bg-transparent px-4 outline-none placeholder:text-[#b3b3b3]" />
-            </div>
+            <input type="date" name="date" value={form.date} onChange={handleChange} required className="h-12 w-full border border-[#8c8c8c] bg-transparent px-4 outline-none" />
 
-            <div>
-              <label htmlFor="contactNumber" className="sr-only">
-                Your Contact Number
-              </label>
-              <input id="contactNumber" type="tel" name="contactNumber" value={form.contactNumber} onChange={handleChange} placeholder="Your Contact Number" required className="h-12 w-full border border-[#8c8c8c] bg-transparent px-4 outline-none placeholder:text-[#b3b3b3]" />
-            </div>
+            <input type="tel" name="contactNumber" value={form.contactNumber} onChange={handleChange} placeholder="Your Contact Number" required className="h-12 w-full border border-[#8c8c8c] bg-transparent px-4 outline-none" />
           </div>
 
-          <div>
-            <label htmlFor="comment" className="sr-only">
-              Your Comment
-            </label>
-            <textarea id="comment" name="comment" value={form.comment} onChange={handleChange} placeholder="Your Comment" rows={6} className="w-full border border-[#8c8c8c] bg-transparent p-4 outline-none placeholder:text-[#b3b3b3] resize-none" />
-          </div>
+          <textarea name="comment" value={form.comment} onChange={handleChange} placeholder="Your Comment" rows={6} className="w-full border border-[#8c8c8c] bg-transparent p-4 outline-none resize-none" />
 
           <div className="mt-4 flex justify-end">
-            <button type="submit" disabled={isSubmitting} className="relative inline-flex items-center justify-center px-10 py-2 text-xs tracking-[0.35em] uppercase border border-white disabled:opacity-50">
-              {isSubmitting ? "Sending..." : "Reserve"}
+            <button
+              type="submit"
+              disabled={isSubmitting}
+              className="border border-gray-500 text-white px-10 py-2 tracking-[0.35em] uppercase
+             hover:bg-pink-600 hover:border-pink-600 transition
+             disabled:opacity-50"
+            >
+              {isSubmitting ? "SENDING..." : "RESERVE"}
             </button>
           </div>
 
-          {submitError && (
-            <div className="mt-4 flex justify-center">
-              <p className="text-red-400 text-sm text-center">{submitError}</p>
-            </div>
-          )}
+          {submitError && <p className="text-red-400 text-sm text-center">{submitError}</p>}
 
-          {submitted && (
-            <div className="mt-4 flex justify-center">
-              <p className="text-pink-500 text-sm text-center">Your reservation has been sent!</p>
-            </div>
-          )}
+          {submitted && <p className="text-pink-500 text-sm text-center">Your reservation has been sent!</p>}
         </form>
       </div>
     </section>
