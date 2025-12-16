@@ -79,7 +79,7 @@ export default function BlogSection() {
 
                 <h3 className="text-base md:text-lg font-semibold">{post.title}</h3>
 
-                <p className="text-xs md:text-sm text-gray-300 line-clamp-4">{post.content.slice(0, 140)}…</p>
+                <p className="text-xs md:text-sm text-gray-300 line-clamp-4">{post.content.slice(0, 100)}…</p>
               </div>
             </article>
           </Link>

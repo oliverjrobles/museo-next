@@ -2,23 +2,57 @@
 
 import { useState } from "react";
 
+const ENDPOINT = `${process.env.NEXT_PUBLIC_API_URL}/comments`;
+
 export default function Form() {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [comment, setComment] = useState("");
-  const [submitted, setSubmitted] = useState(false);
 
-  function handleSubmit(e) {
-    if (e) {
-      e.preventDefault();
+  const [success, setSuccess] = useState(false);
+  const [error, setError] = useState("");
+
+  async function handleSubmit(e) {
+    e.preventDefault();
+    setError("");
+    setSuccess(false);
+
+    // validering
+    if (!name.trim() || !email.trim() || !comment.trim()) {
+      setError("All fields are required");
+      return;
     }
 
-    setSubmitted(true);
+    if (!/^\S+@\S+\.\S+$/.test(email)) {
+      setError("Please enter a valid email address");
+      return;
+    }
 
-    // ryd felter
-    setName("");
-    setEmail("");
-    setComment("");
+    try {
+      const res = await fetch(ENDPOINT, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          name,
+          email,
+          comment,
+        }),
+      });
+
+      if (!res.ok) {
+        const data = await res.json();
+        throw new Error(data.message || "Something went wrong");
+      }
+
+      setSuccess(true);
+      setName("");
+      setEmail("");
+      setComment("");
+    } catch (err) {
+      setError(err.message || "Server error");
+    }
   }
 
   return (
@@ -28,14 +62,7 @@ export default function Form() {
         <h2 className="text-lg md:text-xl tracking-[0.25em] uppercase mb-10">Leave a comment</h2>
 
         {/* FORM */}
-        <form
-          onSubmit={handleSubmit}
-          className="
-            grid gap-8
-            md:grid-cols-3 
-            md:items-start
-          "
-        >
+        <form onSubmit={handleSubmit} className="grid gap-8 md:grid-cols-3 md:items-start">
           {/* NAME */}
           <div className="border border-white px-4 py-2">
             <input type="text" placeholder="Your Name" value={name} onChange={(e) => setName(e.target.value)} className="w-full bg-transparent outline-none text-white placeholder-white text-sm tracking-wide" />
@@ -50,27 +77,20 @@ export default function Form() {
           <div className="border border-white px-4 py-3 md:col-span-3">
             <textarea placeholder="Your comment" value={comment} onChange={(e) => setComment(e.target.value)} rows={3} className="w-full bg-transparent outline-none text-white placeholder-white text-sm tracking-wide resize-none" />
           </div>
+
+          {/* SUBMIT */}
+          <div className="md:col-span-3 flex justify-end">
+            <button type="submit" className="border-t border-b border-white px-10 py-2 text-[0.7rem] tracking-[0.4em] uppercase hover:bg-white hover:text-black transition">
+              Submit
+            </button>
+          </div>
         </form>
 
-        {/* SUBMIT KNAP*/}
-        <div className="flex py-3 justify-end md:self-start">
-          <button
-            type="button"
-            onClick={handleSubmit}
-            className="
-              border-t border-b border-white
-              px-10 py-2
-              text-[0.7rem] tracking-[0.4em] uppercase
-              hover:bg-white hover:text-black
-              transition
-            "
-          >
-            Submit
-          </button>
-        </div>
+        {/* FEJL */}
+        {error && <p className="mt-8 text-sm text-red-400 tracking-wide">{error}</p>}
 
-        {/* TAK-BESKED */}
-        {submitted && <p className="mt-10 text-sm text-pink-400 tracking-wide">Thank you for your comment!</p>}
+        {/* SUCCESS */}
+        {success && <p className="mt-8 text-sm text-pink-400 tracking-wide">Thank you for your comment!</p>}
       </div>
     </section>
   );
