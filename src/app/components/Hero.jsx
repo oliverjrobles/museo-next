@@ -110,7 +110,7 @@ export default function Hero() {
 
             {/* TAGLINE + LINE */}
             <motion.div variants={subVariants} className="flex flex-col items-center">
-              <p className="mt-1 text-[0.55rem] sm:text-[0.6rem] md:text-[20px] tracking-[1.25em] font-medium uppercase text-white opacity-90 leading-none">HAVE&nbsp;A&nbsp;GOOD&nbsp;TIME</p>
+              <p className="mt-1 text-[0.55rem] sm:text-[0.6rem] md:text-[20px] tracking-[1.25em] font-medium uppercase text-white opacity-100 leading-none">HAVE&nbsp;A&nbsp;GOOD&nbsp;TIME</p>
 
               <div className="mt-2 w-full max-w-[320px] sm:max-w-[320px] md:max-w-[360px]">
                 <Image src="/assets/bottom_line.png" alt="" aria-hidden="true" width={800} height={80} className="mx-auto h-auto w-full opacity-90" />
