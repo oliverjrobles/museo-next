@@ -19,6 +19,11 @@ export default function Navbar() {
   const isBook = pathname === "/book";
   const isContact = pathname === "/contact";
 
+  const activeLinkClass = "relative inline-block text-[#ff2b80]";
+  const linkClass = "relative inline-block transition-colors hover:text-[#ff2b80]";
+
+  const Underline = () => <span className="pointer-events-none absolute left-0 top-6 h-0.5 w-full bg-[#ff2b80]" />;
+
   return (
     <nav className="relative overflow-hidden bg-[#060008] text-white border-y-2 border-[#ff2b80]">
       {/* pink hjørner */}
@@ -36,32 +41,33 @@ export default function Navbar() {
         <ul className="hidden md:flex list-none gap-8 text-[0.85rem] tracking-[0.2em] uppercase">
           {/* HOME */}
           <li className="relative">
-            <Link href="/" className={isHome ? "text-[#ff2b80]" : "transition-colors hover:text-[#ff2b80]"}>
+            <Link href="/" className={isHome ? activeLinkClass : linkClass}>
               Home
+              {isHome && <Underline />}
             </Link>
-            {isHome && <span className="pointer-events-none absolute left-1/2 top-6 h-0.5 w-10 -translate-x-1/2 bg-[#ff2b80]" />}
           </li>
 
           {/* BLOG */}
           <li className="relative">
-            <Link href="/blog" className={isBlog ? "text-[#ff2b80]" : "transition-colors hover:text-[#ff2b80]"}>
+            <Link href="/blog" className={isBlog ? activeLinkClass : linkClass}>
               Blog
+              {isBlog && <Underline />}
             </Link>
-            {isBlog && <span className="pointer-events-none absolute left-1/2 top-6 h-0.5 w-10 -translate-x-1/2 bg-[#ff2b80]" />}
           </li>
 
           {/* BOOK TABLE */}
           <li className="relative">
-            <Link href="/book" className={isBook ? "text-[#ff2b80]" : "transition-colors hover:text-[#ff2b80]"}>
+            <Link href="/book" className={isBook ? activeLinkClass : linkClass}>
               Book table
+              {isBook && <Underline />}
             </Link>
-            {isBook && <span className="pointer-events-none absolute left-1/2 top-6 h-0.5 w-10 -translate-x-1/2 bg-[#ff2b80]" />}
           </li>
 
           {/* CONTACT */}
-          <li>
-            <Link href="/contact" className={isContact ? "text-[#ff2b80]" : "transition-colors hover:text-[#ff2b80]"}>
+          <li className="relative">
+            <Link href="/contact" className={isContact ? activeLinkClass : linkClass}>
               Contact us
+              {isContact && <Underline />}
             </Link>
           </li>
 
