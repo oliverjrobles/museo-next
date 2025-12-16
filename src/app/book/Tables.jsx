@@ -1,6 +1,5 @@
 "use client";
 
-import { useState } from "react";
 import { motion } from "framer-motion";
 import Image from "next/image";
 
@@ -25,11 +24,10 @@ const tableVariants = {
   },
 };
 
-export default function Tables() {
-  const [selectedTable, setSelectedTable] = useState(null);
-
+export default function Tables({ selectedTable, onSelectTable }) {
   const toggleTable = (num) => {
-    setSelectedTable((prev) => (prev === num ? null : num));
+    const next = selectedTable === num ? null : num;
+    onSelectTable?.(next);
   };
 
   return (
@@ -37,7 +35,6 @@ export default function Tables() {
       <div className="mx-auto max-w-5xl px-4">
         <motion.div className="grid grid-cols-1 sm:grid-cols-3 gap-y-10 sm:gap-y-14" variants={containerVariants} initial="hidden" animate="visible">
           {tables.map((num) => {
-            // vi cykler mellem table1.svg, table2.svg, table3.svg
             const tableSvgIndex = ((num - 1) % 3) + 1;
             const isSelected = selectedTable === num;
 
@@ -61,10 +58,7 @@ export default function Tables() {
                 transition={{ type: "spring", stiffness: 240, damping: 18 }}
                 className="relative mx-auto flex items-center justify-center bg-transparent"
               >
-                {/* SVG-bordet */}
                 <Image src={`/assets/icon/table${tableSvgIndex}.svg`} alt={`Table ${num}`} width={120} height={120} className="pointer-events-none" />
-
-                {/* Bord-nummer */}
                 <span className="pointer-events-none absolute text-white text-sm font-semibold tracking-widest">{num}</span>
               </motion.button>
             );
