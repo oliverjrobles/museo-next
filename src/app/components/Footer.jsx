@@ -41,9 +41,7 @@ export default function Footer() {
           }));
           setTweets(mappedTweets);
         }
-      } catch {
-        // hvis noget går galt, lader vi bare posts/tweets være tomme
-      }
+      } catch {}
     }
 
     load();
@@ -70,21 +68,21 @@ export default function Footer() {
             <p className="text-[10px] tracking-[0.35em] uppercase">Have a good time</p>
           </div>
 
-          {/* LOCATION */}
+          {/* Loka */}
           <div className="space-y-2 text-sm">
             <h3 className="text-xs font-semibold tracking-[0.3em] uppercase text-[#ff3e7f]">Location</h3>
             <p>Kompagnistræde 278</p>
             <p>1265 København K</p>
           </div>
 
-          {/* OPENING HOURS */}
+          {/* tider */}
           <div className="space-y-2 text-sm">
             <h3 className="text-xs font-semibold tracking-[0.3em] uppercase text-[#ff3e7f]">Opening Hours</h3>
             <p>Wed - Thu: 10:30 PM to 3 AM</p>
             <p>Sat - Sun: 11 PM to 5 AM</p>
           </div>
 
-          {/* SOCIAL */}
+          {/* SoMe */}
           <div className="space-y-3">
             <p className="text-xs tracking-[0.25em] uppercase">Stay Connected With Us</p>
             <div className="flex justify-center gap-3">

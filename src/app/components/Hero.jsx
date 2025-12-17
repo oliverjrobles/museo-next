@@ -4,7 +4,7 @@ import Image from "next/image";
 import { AnimatePresence, motion } from "framer-motion";
 import { useEffect, useState } from "react";
 
-// ✅ Styrer rækkefølgen: logo først, så tagline+line
+// Styrer rækkefølgen: logo først, så tagline+line
 const containerVariants = {
   hidden: {},
   show: {
@@ -15,7 +15,7 @@ const containerVariants = {
   },
 };
 
-// ✅ LOGO: flip + langsomt drop
+// Logo: flip + langsomt drop
 const logoVariants = {
   hidden: {
     opacity: 0,
@@ -35,7 +35,7 @@ const logoVariants = {
   },
 };
 
-// ✅ TAGLINE + LINE: tydelig dropdown + fade
+// Have a good time + radiantlinje: tydelig dropdown + fade
 const subVariants = {
   hidden: {
     opacity: 0,
@@ -89,7 +89,7 @@ export default function Hero() {
           onLoadingComplete={() => setBgReady(true)}
         />
 
-        {/* CONTENT */}
+        {/* indhold */}
         <motion.div
           className="
             absolute inset-0
@@ -103,12 +103,12 @@ export default function Hero() {
           animate={isReady ? "show" : "hidden"}
         >
           <div className="flex flex-col items-center text-center gap-3 md:gap-5 md:translate-y-6 lg:translate-y-8">
-            {/* LOGO */}
+            {/* Logo */}
             <motion.div variants={logoVariants} style={{ transformStyle: "preserve-3d" }}>
               <Image src="/assets/icon/Logo.svg" alt="Night Club logo" width={220} height={60} priority className="h-auto w-[340px] sm:w-[220px] md:w-[720px]" />
             </motion.div>
 
-            {/* TAGLINE + LINE */}
+            {/* have a good time og radiantlinje */}
             <motion.div variants={subVariants} className="flex flex-col items-center">
               <p className="mt-1 text-[0.55rem] sm:text-[0.6rem] md:text-[20px] tracking-[1.25em] font-medium uppercase text-white opacity-100 leading-none">HAVE&nbsp;A&nbsp;GOOD&nbsp;TIME</p>
 
@@ -119,7 +119,7 @@ export default function Hero() {
           </div>
         </motion.div>
 
-        {/* LOADER */}
+        {/* loader effekt gif halløjsa */}
         <AnimatePresence>
           {!isReady && (
             <motion.div className="absolute inset-0 z-30 grid place-items-center bg-black" initial={{ opacity: 1 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} transition={{ duration: 0.4, ease: "easeOut" }}>
